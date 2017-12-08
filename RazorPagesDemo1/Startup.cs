@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RazorPagesDemo1.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace RazorPagesDemo1
 {
@@ -22,6 +24,8 @@ namespace RazorPagesDemo1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var connection = Configuration.GetConnectionString("DatabaseConnection");
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
